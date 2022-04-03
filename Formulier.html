@@ -1,12 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="bootstrap-5.1.3-dist/css/bootstrap.css">
 </head>
+
 <body>
-    
+
+    <h1>Registreer</h1>
+    <h3>Meld je aan bij Anoroc Services, wij beschermen jouw software tegen malware!</h3>
+    <br>
+    <form>
+        <label>Voornaam</label>
+        <input title="Voornaam" placeholder="Uw voornaam" id="Voornaam">
+        <br>
+
+        <label>Naam</label>
+        <input title="Naam" placeholder="Uw Naam" id="Naam">
+        <br>
+
+        <label>Gebruikersnaam</label>
+        <input title="Gebruikersnaam" placeholder="r0900368" id="Gebruikersnaam">
+        <br>
+
+        <label>E-mailadres</label>
+        <input title="E-mailadres" placeholder="mail@example.be" type="email" id="Email">
+        <br>
+
+        <label>Wachtwoord</label>
+        <input type="password" title="Wachtwoord" id="Wachtwoord">
+        <p>Je wachtwoord moet minstens 8 tekens lang zijn.</p>
+        <br>
+
+        <label>Herhaal wachtwoord</label>
+        <input type="password" title="HerhaalWachtwoord" id="Herhaalwachtwoord">
+        <br>
+
+        <label>Adres</label>
+        <input title="Adres" placeholder="Uw adres en huisnummer" id="Adres">
+        <br>
+
+        <label>Land</label>
+        <select title="Land" id="Land">
+            <option value="">Kies een land</option>
+            <option value="België">België</option>
+            <option value="Nederland">Nederland</option>
+            <option value="Frankrijk">Frankrijk</option>
+        </select>
+
+        <br>
+
+        <label>Provincie</label>
+        <select title="Provincie" id="Provincie">
+            <option value="">Kies een provincie</option>
+            <option value="Antwerpen">Antwerpen</option>
+            <!--provinvie België-->
+            <option value="Limburg">Limburg</option>
+            <!--provinvie België-->
+            <option value="Luik">Luik</option>
+            <!--provinvie België-->
+            <option value="Groningen">Groningen</option>
+            <!--provinvie nederland-->
+            <option value="Friesland">Friesland</option>
+            <!--provinvie nederland-->
+            <option value="Zeeland">Zeeland</option>
+            <!--provinvie nederland-->
+            <option value="Île-de-France">Île-de-France</option>
+            <!--provinvie Frankrijk-->
+            <option value="Berry">Berry</option>
+            <!--provinvie Frankrijk-->
+            <option value="Orléanais">Orléanais</option>
+            <!--provinvie Frankrijk-->
+        </select>
+        <br>
+
+        <label>Postcode</label>
+        <input title="Postcode" type="number" id="Postcode">
+        <br>
+        <h2>Hou me op de hoogte</h2>
+        <input type="checkbox" title="CBInschrijven">
+        <label>Inschrijven voor onze nieuwsbrief</label>
+        <input type="checkbox" title="CBAlgemeneVoorwaarden">
+        <label>Ik ga akkoord met de algemene voorwaarden.</label>
+        <br>
+
+        <h2>Betaling</h2>
+        <input type="radio" title="BankingApp">
+        <label>Banking app</label>
+        <input type="radio" title="Overschrijving">
+        <label>Overschrijving</label>
+        <input type="radio" title="VisaCard">
+        <label>Visa card</label>
+        <Input type="radio" title="PayPal">
+        <label>PayPal</label>
+
+        <br>
+        <button type="button" id="Registreren">Wave your magic wand</button>
+    </form>
+
+
+    <script>
+        console.log("plek1")
+        const errors = [];
+
+        function validateFrom() {
+            checkEmptyField("#Voornaam", "Het veld voornaam is vereist.");
+            checkEmptyField("#Naam", "Het veld naam is vereist.");
+            checkEmptyField("#Gebruikersnaam", "Het veld gebruikersnaam is vereist.");
+            checkEmptyField("#Adres", "Het veld adres is vereist.");
+            checkEmptyField("#Land", "Het veld land is vereist.");
+            checkEmptyField("#Provincie", "Het veld provincie is vereist.");
+            checkWachtwoorden();
+            validateEmail("#Email")
+
+            console.log(errors);
+
+        }
+
+        function checkEmptyField(veldid, melding) {
+            let veld = document.querySelector(veldid)
+
+            if (veld.value == "") {
+                errors.push(melding);
+                return true;
+            }
+            return false;
+        }
+
+        function validateEmail(email) {
+            // source: https://www.w3resource.com/javascript/form/email-validation.php
+            {      
+                    let veld = document.querySelector(email)
+                    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+                    if (veld.value.match(mailformat)) {
+                    
+                        return true;
+                    } else {
+                        errors.push("You have entered an invalid email address!");
+                        return false;
+                    }
+                }
+            
+        }
+
+
+        function checkWachtwoorden() {
+            let wachtwoord = document.querySelector("#Wachtwoord")
+            let herhaalwachtwoord = document.querySelector("#Herhaalwachtwoord")
+            if ((checkEmptyField("#Wachtwoord", "Het veld wachtwoord is vereist")) == false || checkEmptyField(
+                    "#Herhaalwachtwoord", "Het veld herhaal wachtwoord is vereist") == false) {
+
+                if (wachtwoord.value != herhaalwachtwoord.value) {
+                    errors.push("wachtwoorden komen niet overeen");
+                } else if (wachtwoord.value.length < 8) {
+                    console.log(wachtwoord.value)
+                    errors.push("wachtwoord moet minstens 8 tekens bevatten");
+                }
+            }
+        }
+
+        document.querySelector("#Registreren").addEventListener("click", validateFrom);
+    </script>
 </body>
+
 </html>
